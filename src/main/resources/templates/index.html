@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<#assign ctx=request.contextPath />
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>校园快递信息管理后台</title>
+    <link rel="stylesheet" type="text/css" href="${ctx}/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="${ctx}/easyui/themes/icon.css">
+   <!-- <link rel="stylesheet" type="text/css" href="${ctx}/easyui/demo.css">-->
+    <script type="text/javascript" src="${ctx}/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="${ctx}/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            // 数据
+            var treeData=[{
+                text:"菜单",
+                children:[{
+                    text:"发送信息",
+                    attributes:{
+                        url:"/sent/sentMessage"
+                    }
+                },{
+                    text:"已发信息",
+                    attributes:{
+                        url:"/sent/sentMessage"
+                    }
+                }]
+            }];
+
+            // 实例化树菜单
+            $("#tree").tree({
+                data:treeData,
+                lines:true,
+                onClick:function(node){
+                    if(node.attributes){
+                        openTab(node.text,node.attributes.url);
+                    }
+                }
+            });
+
+            // 新增Tab
+            function openTab(text,url){
+                if($("#tabs").tabs('exists',text)){
+                    $("#tabs").tabs('select',text);
+                }else{
+                    var content="<iframe frameborder='0' scrolling='auto' style='width:100%;height:100%' src="+url+"></iframe>";
+                    $("#tabs").tabs('add',{
+                        title:text,
+                        closable:true,
+                        content:content
+                    });
+                }
+            }
+        });
+    </script>
+</head>
+<body class="easyui-layout">
+    <!--头部-->
+    <div region="north" style="height:100px; background-color: #E0EDFF" collapsible="false" >
+        <div align="left" style="width: 80%;float: left;font-size: 50px;color: #c9302c;margin-top: 10px;margin-left: 20px;">
+            校园快递短信发送后台
+        </div>
+    </div>
+    <!--导航菜单-->
+    <div data-options="region:'west',title:'菜单',split:true" style="width:150px;" >
+        <ul id="tree"></ul>
+    </div>
+    <!--显示详细页面-->
+    <div data-options="region:'center'" style="padding:5px;background:#eee;">
+        <div class="easyui-tabs" fit="true" border="false" id="tabs">
+            <div title="首页" >
+                <div align="center" style="padding-top: 100px;"><font color="red" size="10">欢迎使用</font></div>
+            </div>
+        </div>
+    </div>
+    <!--底部-->
+    <div data-options="region:'south'" style="height: 25px;" align="center">版权所有<a href="http://www.qiqibl.com">校园情话</a></div>
+</body>
+</html>

@@ -1,10 +1,71 @@
 <!DOCTYPE html>
+<#assign ctx=request.contextPath />
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="${ctx}/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="${ctx}/easyui/themes/icon.css">
+    <!-- <link rel="stylesheet" type="text/css" href="${ctx}/easyui/demo.css">-->
+    <script type="text/javascript" src="${ctx}/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="${ctx}/easyui/jquery.easyui.min.js"></script>
+    <style>
+        body{ text-align:center}
+        .panel-htop{margin:0 auto}
+
+    </style>
 </head>
 <body>
-发送短信
+<h2>上传excle</h2>
+<p></p>
+<div style="margin:20px 0;"></div>
+<div class="easyui-panel"  style="width:400px;padding:30px 70px 50px 70px">
+    <div style="margin-bottom:20px">
+        <div>手机号名单文件：</div>
+        <form id="importFileForm" method="post" enctype="multipart/form-data">
+            <input id="file" class="easyui-filebox"  style="width:100%" data-options="prompt:'选择文件',buttonText:'&nbsp;选&nbsp;择&nbsp;',
+             accept:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'">
+
+    </div>
+    <div>
+        <a href="javascript:void(0)" class="easyui-linkbutton" id="uploadFile" data-bind="click:importFileClick" style="width:100%">发送</a>
+    </div>
+    </form>
+</div>
 </body>
+<script>
+    $(function(){
+        $("#uploadFile").bind('click', function(){
+            var fileName=$("#file").filebox('getValue');
+            var size= fileName.length //获取文件后缀
+            //alert(type)
+            if(size!=0){
+                //执行文件上传
+                //获取form数据
+               // var formData = new FormData($("#importFileForm"));
+                var formData=$("#importFileForm").serialize();
+                $.ajax({
+                    url: "/sent/uploadFile",
+                    type: 'POST',
+                    data: formData,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+
+                    }
+                });
+            }else{
+                //$.messager.alert('提示','文件上传错误','info');
+                $.messager.show({
+                    title:'提 示',
+                    msg:'没有选择文件',
+                    timeout:3000,
+                    showType:'slide'
+                });
+            }
+        });
+    });
+</script>
 </html>

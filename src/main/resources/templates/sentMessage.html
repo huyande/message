@@ -25,12 +25,12 @@
         <form id="importFileForm" method="post" enctype="multipart/form-data">
             <input id="file" class="easyui-filebox"  style="width:100%" data-options="prompt:'选择文件',buttonText:'&nbsp;选&nbsp;择&nbsp;',
              accept:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'">
-
+        </form>
     </div>
     <div>
         <a href="javascript:void(0)" class="easyui-linkbutton" id="uploadFile" data-bind="click:importFileClick" style="width:100%">发送</a>
     </div>
-    </form>
+
 </div>
 </body>
 <script>
@@ -43,7 +43,11 @@
                 //执行文件上传
                 //获取form数据
                // var formData = new FormData($("#importFileForm"));
-                var formData=$("#importFileForm").serialize();
+               // var file = $("#importFileForm").get(0).files[0];
+                var file = $("#filebox_file_id_1").get(0).files[0]
+                var fileSize=file.size;
+                var formData = new FormData();
+                formData.append("file", file);
                 $.ajax({
                     url: "/sent/uploadFile",
                     type: 'POST',

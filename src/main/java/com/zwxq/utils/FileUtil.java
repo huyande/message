@@ -246,7 +246,7 @@ public class FileUtil {
 		// 获取文件的后缀名称
 		String fileNameExtention = fileName.substring(fileName.lastIndexOf("."), fileName.length());
 		// 生成真实的文件名称
-		String realName = UUID.randomUUID().toString() + fileNameExtention;
+		String realName = DateUtil.getCurrentDate(DateUtil.DATE_FORMAT) + fileNameExtention;
 		File dest = new File(path + "/" + realName);
 		if (FileUtil.isExist(path)) {
 			try {
@@ -259,6 +259,4 @@ public class FileUtil {
 		}
 		return realName;
 	}
-
-	
 }

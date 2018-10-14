@@ -1,10 +1,44 @@
 <!DOCTYPE html>
+<#assign ctx=request.contextPath />
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="${ctx}/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="${ctx}/easyui/themes/icon.css">
+    <!-- <link rel="stylesheet" type="text/css" href="${ctx}/easyui/demo.css">-->
+    <script type="text/javascript" src="${ctx}/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="${ctx}/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="${ctx}/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script>
+        function searchGrade(){
+            $('#dg').datagrid('load',{
+                errmsg:$('#s_errmsg').val()
+            });
+        }
+
+    </script>
 </head>
-<body>
-已发短信
+<body style="margin: 5px;">
+<table id="dg" title="已发短信信息" class="easyui-datagrid" fitColumns="true"
+       pagination="true" rownumbers="true" url="/sent/messageInfo" fit="true" toolbar="#tb">
+    <thead>
+    <tr>
+        <th field="cb" checkbox="true"></th>
+      <!--  <th field="id" width="50">编号</th>-->
+        <th field="mobile" width="40%">手机号</th>
+        <th field="errmsg" width="20%">状态</th>
+        <th field="createdate" width="40">时间</th>
+    </tr>
+    </thead>
+</table>
+
+<div id="tb">
+    <div>
+        &nbsp;状态：&nbsp;<input type="text" name="s_errmsg" id="s_errmsg"/>
+        <a href="javascript:searchGrade()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a>
+    </div>
+</div>
+
+
 </body>
 </html>

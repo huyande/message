@@ -15,17 +15,17 @@ import org.springframework.stereotype.Component;
 
 public class SentMassageTxUtil {
 
-	private static int appid = 1400; // 1400开头
-	private static  String appkey = "6ba8c8727d2a179abb4ae4";
-	private static int templateId = 209; // NOTE: 这里的模板ID`7839`只是一个示例，真实的模板ID需要在短信控制台中申请
-	private static String smsSign = "百世汇通";
+	/*private static int appid = 1400147984; // 1400开头
+	private static  String appkey = "6ba8c8727d2a179abb4ae49fd47f99c3";
+	private static int templateId = 209956; // NOTE: 这里的模板ID`7839`只是一个示例，真实的模板ID需要在短信控制台中申请
+	private static String smsSign = "百世汇通";*/
 	
 	/**
 	 * 群发
 	 * @param phoneNumbers
 	 * @return
 	 */
-	public static SmsMultiSenderResult massMessaging(String[] phoneNumbers,String[] messages){
+	public static SmsMultiSenderResult massMessaging(String[] phoneNumbers,String[] messages,int appid,String appkey,int templateId,String smsSign){
 		try {
 			//数组具体的元素个数和模板中变量个数必须一致，例如事例中templateId:5678对应一个变量，参数数组中元素个数也必须是一个
 		    SmsMultiSender msender = new SmsMultiSender(appid, appkey);
@@ -51,7 +51,7 @@ public class SentMassageTxUtil {
 	 * 单条发
 	 */
 	
-	public static SmsSingleSenderResult singleMessaging(String phoneNumber){
+	public static SmsSingleSenderResult singleMessaging(String phoneNumber,int appid,String appkey,int templateId,String smsSign){
 		try {
 		    String[] params = {"5678"};//数组具体的元素个数和模板中变量个数必须一致，例如事例中templateId:5678对应一个变量，参数数组中元素个数也必须是一个
 		    SmsSingleSender ssender = new SmsSingleSender(appid, appkey);

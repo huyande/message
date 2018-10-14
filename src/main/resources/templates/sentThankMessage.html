@@ -21,13 +21,7 @@
 <div style="margin:20px 0;"></div>
 <div class="easyui-panel"  style="width:400px;padding:30px 70px 50px 70px">
     <div style="margin-bottom:20px">
-
         <form id="importFileForm" method="post" enctype="multipart/form-data">
-            <div style="margin-bottom:20px">
-                <div>发送内容：</div>
-                <input class="easyui-textbox" id="message" style="width:100%">
-            </div>
-            
             <div style="margin-bottom:20px">发送者：
             <select class="easyui-combobox" name="senter" id="senter" style="width:100%;">
 				<option value="18169038818">17级市营郭建勤</option>
@@ -51,7 +45,6 @@
 </body>
 <script>
     $(function(){
-    	
     	$(function(){
             $('#senter').combobox({    
            	 required:true,    
@@ -70,24 +63,14 @@
                 //获取form数据
                // var formData = new FormData($("#importFileForm"));
                // var file = $("#importFileForm").get(0).files[0];
-                if($("#message").val().length >12 || $("#message").val().length==0){
-                    $.messager.show({
-                        title:'提 示',
-                        msg:'发送的内容不能为空且字数小于12个',
-                        timeout:3000,
-                        showType:'slide',
-                    });
-                    return;
-                }
                 var file = $("#filebox_file_id_1").get(0).files[0]
                 var fileSize=file.size;
                 var formData = new FormData();
                 formData.append("file", file);
-                formData.append("message",$("#message").val());
                 formData.append("senter",$("#senter").combobox('getText'));
                 formData.append("senterPhone",$("#senter").combobox('getValue'));
                 $.ajax({
-                    url: "/sent/uploadFile",
+                    url: "/sent/uploadThankFile",
                     type: 'POST',
                     data: formData,
                     async: false,
@@ -103,7 +86,7 @@
                                 msg:'发送成功',
                                 timeout:3000,
                                 showType:'slide',
-                            }); 
+                            });
                         }else{
                             $.messager.show({
                                 title:'提 示',
@@ -113,7 +96,7 @@
                             });
                         }
                     }
-                });  
+                }); 
             }else{
                 //$.messager.alert('提示','文件上传错误','info');
                 $.messager.show({

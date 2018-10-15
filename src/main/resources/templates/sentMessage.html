@@ -34,6 +34,8 @@
 				<option value="18109558303">18级学前董佳</option>
 				<option value="15769556818">17级旅管李娜</option>
 				<option value="15595485048">17级电商黄天欣</option>
+				<option value="18465153531">18级市营杨健</option>
+				<option value="18709650723">18级软件樊启启</option>
 			</select>
 			</div>
 			
@@ -87,7 +89,7 @@
                 formData.append("senter",$("#senter").combobox('getText'));
                 formData.append("senterPhone",$("#senter").combobox('getValue'));
                 $.ajax({
-                    url: "/sent/uploadFile",
+                    url: "/admin/uploadFile",
                     type: 'POST',
                     data: formData,
                     async: false,

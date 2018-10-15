@@ -106,12 +106,12 @@
 			<artifactId>qcloudsms</artifactId>
 			<version>1.0.5</version>
 		</dependency>
-		<!-- 安全验证
+		<!-- 安全验证-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
- 		-->
+ 		
 		<!-- 热部署 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

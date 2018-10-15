@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>图片视频结构化分析系统 - 登录</title>
+<link rel="stylesheet" type="text/css" href="${request.contextPath}/style/global.css" />
+<link rel="stylesheet" type="text/css" href="${request.contextPath}/style/style.css" />
+<script type="text/javascript" src="${request.contextPath}/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/global.js"></script>
+<script type="text/javascript">
+	function login(){
+		//$("#form").submit();
+		$.ajax({
+            url: '/admin/login',
+            type: 'POST',
+            data: $("#form").serialize(),
+            success: function (data) {
+            	//alert(data);
+            	if(data.status=='ok'){
+            		window.location.href='/admin/main'
+            	}else if(data.status=='error'){
+            		
+            		var errorMsg = data.msg;
+            		//alert(errorMsg);
+            		$(".errorTip").html(errorMsg);
+            	}
+                
+            }
+        });
+	}
+</script>
+</head>
+
+<body class="loginBody">
+    <div class="container">
+        <div class="loginMain">
+            <div class="tasteBox">
+            	<div style="font-size:80px;font-family: '华文彩云';color:#ffffff">校园快递</div>
+            </div>
+            <div class="loginBox">
+                <div class="loginEntrance clearfix">
+                    <a style="cursor:pointer;" class="loginEntranceBtn left"></a>
+                    <form name="form" id="form" action="/admin/login" method="post">
+	                    <ul class="loginList">
+	                        <li><input type="text" name="username" placeholder="用户名" /></li>
+	                        <li><input type="password" name="password" placeholder="密码" /></li>	                        
+	                        <li>
+	                        	<a style="cursor:pointer;" class="loginBtn" onclick="login()">立即登录</a>
+	                        	<span class="errorTip"></span>
+	                        </li>
+	                    </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

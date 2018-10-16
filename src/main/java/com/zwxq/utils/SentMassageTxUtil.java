@@ -9,6 +9,9 @@ import com.github.qcloudsms.SmsMultiSenderResult;
 import com.github.qcloudsms.SmsSingleSender;
 import com.github.qcloudsms.SmsSingleSenderResult;
 import com.github.qcloudsms.httpclient.HTTPException;
+
+import sun.applet.Main;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
@@ -71,5 +74,15 @@ public class SentMassageTxUtil {
 		    e.printStackTrace();
 		    return null;
 		}
+		
 	}
+	
+	public static void main(String[] args) throws JSONException, HTTPException, IOException {
+		String [] params= {"222","ads"};
+		SmsSingleSender ssender = new SmsSingleSender(1400147984, "6ba8c8727d2a179abb4ae49fd47f99c3");
+	    SmsSingleSenderResult result = ssender.sendWithParam("86", "17600941230",
+	    		210131,params, "宁大校园服务", "", "");  // 签名参数未提供或者为空时，会使用默认签名发送短信
+	    System.out.println(result);
+	}
+	
 }

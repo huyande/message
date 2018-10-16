@@ -39,9 +39,9 @@ public class SentController {
     @Value("${tengxun.appkey}")
     private String appkey;
     
-    /*@Value("${tengxun.smsSign}")
-    private String smsSign;*/
-    
+  /*  @Value("${tengxun.smsSign}")
+    private String smsSign;
+    */
     @Value("${tengxun.templateId}")
     private int templateId;
     
@@ -93,7 +93,7 @@ public class SentController {
                 //发送的消息
                 String [] messages= {message,senter,senterPhone};
                 //产生的结果
-                SmsMultiSenderResult result = SentMassageTxUtil.massMessaging(photoNumStr, messages,appid,appkey,templateId,"百世汇通");
+                SmsMultiSenderResult result = SentMassageTxUtil.massMessaging(photoNumStr, messages,appid,appkey,templateId,"宁大校园服务");
                 //String result="{\"result\":0,\"errmsg\":\"OK\",\"ext\":\"\",\"detail\":[{\"result\":0,\"errmsg\":\"OK\",\"mobile\":\"18195555504\",\"nationcode\":\"86\",\"sid\":\"8:kLqAtxpbPxom4rSRMXK20181014\",\"fee\":1}]}";
                 System.out.println(result);
                 //读取返回的JSON数据

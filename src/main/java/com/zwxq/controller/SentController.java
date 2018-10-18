@@ -48,9 +48,6 @@ public class SentController {
     @Value("${tengxun.templateId.thanks}")
     private int templateIdthanks;
     
-    @Value("${excel.uploadLabelDown}")
-    private String excelUploadDown;
-    
     
     @RequestMapping("/sentMessage")
     public String sentMessage(){
@@ -75,13 +72,11 @@ public class SentController {
     public String pastMessage(MultipartFile file,String message,String senter,String senterPhone){
 
         //下载文件 将文件保存到服务器上
-        String path = excelUploadDown; // 以后配置到配置文件中
-        if(FileUtil.isExist(path)) {
             try {
-                FileUtil.makeDir(path);
-                String realPath = FileUtil.uploadFile(file, path);
-                File fileUpload = new File(path + "/" + realPath);
-                List<Map<String, Object>> exportListFromExcel = ExcelUtil.exportListFromExcel(fileUpload, 0);
+                String fileName = file.getOriginalFilename();
+        		// 获取文件的后缀名称
+        		String fileNameExtention = fileName.substring(fileName.lastIndexOf(".")+1, fileName.length());
+                List<Map<String, Object>> exportListFromExcel = ExcelUtil.exportListFromExcel(file.getInputStream(),fileNameExtention, 0);
                 int num=2;
                 List<String> photoNums = new ArrayList<>();
                 for (Map<String, Object> m:exportListFromExcel) {
@@ -122,17 +117,12 @@ public class SentController {
 
                // System.out.println(result);
                 System.out.println("===========删除文件============");
-                FileUtil.deleteFile(path + "/" + realPath);
                 return "{\"errmsg\": \""+errmsg+"\"}";
                 //return "{\"errmsg\": \"OK\"}";
             } catch (Exception e) {
                 e.printStackTrace();
                 return "{\"errmsg\": \"fasle\"}";
             }
-        }else{
-            return "{\"errmsg\": \"fasle\"}";
-        }
-
     }
     
     @RequestMapping("/uploadThankFile")
@@ -140,13 +130,11 @@ public class SentController {
     public String pastThankMessage(MultipartFile file,String senter,String senterPhone){
     	
     	//下载文件 将文件保存到服务器上
-    	String path = excelUploadDown; // 以后配置到配置文件中
-    	if(FileUtil.isExist(path)) {
     		try {
-    			FileUtil.makeDir(path);
-    			String realPath = FileUtil.uploadFile(file, path);
-    			File fileUpload = new File(path + "/" + realPath);
-    			List<Map<String, Object>> exportListFromExcel = ExcelUtil.exportListFromExcel(fileUpload, 0);
+    			String fileName = file.getOriginalFilename();
+        		// 获取文件的后缀名称
+        		String fileNameExtention = fileName.substring(fileName.lastIndexOf(".")+1, fileName.length());
+                List<Map<String, Object>> exportListFromExcel = ExcelUtil.exportListFromExcel(file.getInputStream(),fileNameExtention, 0);
     			int num=2;
     			List<String> photoNums = new ArrayList<>();
     			for (Map<String, Object> m:exportListFromExcel) {
@@ -184,26 +172,15 @@ public class SentController {
     			
     			//保存数据到数据库
     			messageInfoServise.insertMessage(messageList);
-    			
     			// System.out.println(result);
     			System.out.println("===========删除文件============");
-    			FileUtil.deleteFile(path + "/" + realPath);
     			return "{\"errmsg\": \""+errmsg+"\"}";
     			//return "{\"errmsg\": \"OK\"}";
     		} catch (Exception e) {
     			e.printStackTrace();
     			return "{\"errmsg\": \"fasle\"}";
     		}
-    	}else{
-    		return "{\"errmsg\": \"fasle\"}";
     	}
-    	
-    }
-    
-    
-    
-    
-    
     
 
     @RequestMapping("/messageInfo")

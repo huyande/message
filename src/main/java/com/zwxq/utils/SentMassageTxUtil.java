@@ -54,9 +54,8 @@ public class SentMassageTxUtil {
 	 * 单条发
 	 */
 	
-	public static SmsSingleSenderResult singleMessaging(String phoneNumber,int appid,String appkey,int templateId,String smsSign){
+	public static SmsSingleSenderResult singleMessaging(String phoneNumber,String[] params, int appid,String appkey,int templateId,String smsSign){
 		try {
-		    String[] params = {"5678"};//数组具体的元素个数和模板中变量个数必须一致，例如事例中templateId:5678对应一个变量，参数数组中元素个数也必须是一个
 		    SmsSingleSender ssender = new SmsSingleSender(appid, appkey);
 		    SmsSingleSenderResult result = ssender.sendWithParam("86", phoneNumber,
 		        templateId, params, smsSign, "", "");  // 签名参数未提供或者为空时，会使用默认签名发送短信

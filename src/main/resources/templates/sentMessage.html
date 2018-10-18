@@ -24,11 +24,19 @@
 
         <form id="importFileForm" method="post" enctype="multipart/form-data">
             <div style="margin-bottom:20px">
-                <div>发送内容：</div>
-                <input class="easyui-textbox" id="message" style="width:100%">
+                <div>发送者：</div>
+                <!-- <input class="easyui-textbox" id="message" style="width:100%"> -->
+                <select class="easyui-combobox" name="senter" id="message" style="width:100%;">
+				<option value="到3号楼215">郭建勤</option>
+				<option value="到7号楼607">董佳</option>
+				<option value="到12号楼312">李娜</option>
+				<option value="到8号楼207">黄天欣</option>
+				<option value="到14号楼202">杨健</option>
+				<option value="到4号楼404">樊启启</option>
+			</select>
             </div>
             
-            <div style="margin-bottom:20px">发送者：
+            <div style="margin-bottom:20px">发送内容
             <select class="easyui-combobox" name="senter" id="senter" style="width:100%;">
 				<option value="18169038818">17级市营郭建勤</option>
 				<option value="18109558303">18级学前董佳</option>
@@ -85,7 +93,7 @@
                 var fileSize=file.size;
                 var formData = new FormData();
                 formData.append("file", file);
-                formData.append("message",$("#message").val());
+                formData.append("message",$("#message").combobox('getValue'));
                 formData.append("senter",$("#senter").combobox('getText'));
                 formData.append("senterPhone",$("#senter").combobox('getValue'));
                 $.ajax({
